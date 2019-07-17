@@ -23,6 +23,13 @@ var originalGravity = 1.5;
 
 var score = 0;
 
+var pipe = [];
+
+pipe[0] = {
+    x : canvas.width,
+    y : 0,
+};
+
 function draw(){
     ctx.drawImage(bg,0,0);
     ctx.drawImage(fg,0,(canvas.height-fg.height));
@@ -30,6 +37,19 @@ function draw(){
     var bird = ctx.drawImage(bd, bX, bY);
     requestAnimationFrame(draw);
 
+    for(var i = 0; i < pipe.length; i++){
+        ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
+        ctx.drawImage(pipeSouth, pipe[i].x, (pipe[i].y+(pipeNorth.height+gap)));
+
+        pipe[i].x--;
+
+        if(pipe[i].x == (canvas.width/2)){
+            pipe.push({
+                x: canvas.width,
+                y: Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height
+            });
+        }
+    }
 
     bY += gravity
 
