@@ -19,6 +19,7 @@ var bX = 10;
 var bY = 150;
 
 var gravity = 1.5;
+var originalGravity = 1.5;
 
 var score = 0;
 
@@ -38,7 +39,13 @@ document.addEventListener("keydown",moveUp);
 document.addEventListener("click",moveUp); //able to use mouse too.
 
 function moveUp(){
-    bY -= 25;
+    gravity = -5;
+
+    setTimeout(function(){
+        gravity = originalGravity;
+    },80);
+
+
 }
 
 draw();
