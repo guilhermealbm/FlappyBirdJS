@@ -32,10 +32,6 @@ pipe[0] = {
 
 function draw(){
     ctx.drawImage(bg,0,0);
-    ctx.drawImage(fg,0,(canvas.height-fg.height));
-
-    var bird = ctx.drawImage(bd, bX, bY);
-    requestAnimationFrame(draw);
 
     for(var i = 0; i < pipe.length; i++){
         ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
@@ -49,7 +45,20 @@ function draw(){
                 y: Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height
             });
         }
+
+        //Colision. Pipes and Floor, respectively
+        if(bX + bd.width >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width
+            && (bY <= pipe[i].y + pipeNorth.height || bY+bd.height >= pipe[i].y+(pipeNorth.height+gap)) 
+            || bY + bd.height >= canvas.height - fg.height){
+                //Game over.
+
+        }
     }
+
+    ctx.drawImage(fg,0,(canvas.height-fg.height));
+
+    var bird = ctx.drawImage(bd, bX, bY);
+    requestAnimationFrame(draw);
 
     bY += gravity
 
