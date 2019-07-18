@@ -30,6 +30,8 @@ pipe[0] = {
     y : 0,
 };
 
+var dead = 0;
+
 function draw(){
     ctx.drawImage(bg,0,0);
 
@@ -37,7 +39,8 @@ function draw(){
         ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
         ctx.drawImage(pipeSouth, pipe[i].x, (pipe[i].y+(pipeNorth.height+gap)));
 
-        pipe[i].x--;
+        if(!dead)
+            pipe[i].x--;
 
         if(pipe[i].x == (canvas.width/2)){
             pipe.push({
@@ -50,14 +53,29 @@ function draw(){
         if(bX + bd.width >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width
             && (bY <= pipe[i].y + pipeNorth.height || bY+bd.height >= pipe[i].y+(pipeNorth.height+gap)) 
             || bY + bd.height >= canvas.height - fg.height){
-                //Game over.
+                dead = 1;
+        }
 
+        if(pipe[i].x == 9){
+            score++;
         }
     }
 
     ctx.drawImage(fg,0,(canvas.height-fg.height));
 
     var bird = ctx.drawImage(bd, bX, bY);
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.strokeStyle = "#000000";
+    ctx.font = "70px Flappy";
+
+    ctx.fillText(score, (canvas.width/2)-10, 80);
+    ctx.strokeText(score, (canvas.width/2)-10, 80);
+
+    if (dead)
+        gameOver();
+
+
     requestAnimationFrame(draw);
 
     bY += gravity
@@ -68,13 +86,38 @@ document.addEventListener("keydown",moveUp);
 document.addEventListener("click",moveUp); //able to use mouse too.
 
 function moveUp(){
-    gravity = -5;
 
-    setTimeout(function(){
-        gravity = originalGravity;
-    },80);
+    if(!dead){
+        gravity = -5;
 
+        setTimeout(function(){
+            gravity = originalGravity;
+        },80);
+    }
 
 }
 
-draw();
+function gameOver(){
+    gravity = 0;
+    var retVal = confirm("Do you want to restart? Your score is " + score);
+
+    dead = !retVal;
+
+    if(!dead){
+        score = 0;
+        gravity = originalGravity;
+        bY = 150;
+
+        pipe = [];
+        pipe[0] = {
+            x: canvas.width,
+            y: 0
+        }
+    }else{
+        //Menu TODO.
+    }
+}
+
+window.onload = function () {
+    draw();
+}
