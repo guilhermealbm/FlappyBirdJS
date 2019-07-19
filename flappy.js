@@ -72,11 +72,11 @@ function draw(){
     ctx.fillText(score, (canvas.width/2)-10, 80);
     ctx.strokeText(score, (canvas.width/2)-10, 80);
 
-    if (dead)
+    if (dead){
         gameOver();
-
-
-    requestAnimationFrame(draw);
+    }else{
+        requestAnimationFrame(draw);
+    }
 
     bY += gravity
 
@@ -101,9 +101,8 @@ function gameOver(){
     gravity = 0;
     var retVal = confirm("Do you want to restart? Your score is " + score);
 
-    dead = !retVal;
-
-    if(!dead){
+    if(retVal){
+        dead = 0;
         score = 0;
         gravity = originalGravity;
         bY = 150;
@@ -113,8 +112,7 @@ function gameOver(){
             x: canvas.width,
             y: 0
         }
-    }else{
-        //Menu TODO.
+        draw();
     }
 }
 
