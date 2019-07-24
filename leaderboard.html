@@ -8,9 +8,10 @@
 </head>
 <body>
     <form method="GET" id = "formRecord" name="formRecord">
-        Nickname: <input type="text" name="fname"><br>
-        <p id="record"></p>
-        <button type="submit">Click here to add your record to Leaderboard</button>
+        Nickname: <input type="text" name="name"><br>
+        <p id="bestRecord"></p>
+        <input id = "record" name = "record" type="hidden" value="">
+        <button type="submit" onclick="setValue();">Click here to add your record to Leaderboard</button>
     </form> 
 
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
@@ -22,7 +23,16 @@
         var url_string = window.location.href;
         var url = new URL(url_string);
         var record = url.searchParams.get("record");
-        document.getElementById("record").innerHTML = "Record: " + record;
+        document.getElementById("bestRecord").innerHTML = "Record: " + record;
+        //document.getElementById("hiddenRecord").innerHTML = record;
+    }
+
+    function setValue(){
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var record = url.searchParams.get("record");
+        document.formRecord.record.value = record;
+        document.forms["formRecord"].submit();
     }
     </script>
 
