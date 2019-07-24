@@ -30,7 +30,18 @@ const game_database = {};
 
     }
 
+    function getRecords(){
+        var leadsRef = firebase.database().ref('games');
+        leadsRef.on('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+            console.log(childData.score);
+            });
+        });
+    }
+
     game_database.new = newRecord;
+    game_database.getRecords = getRecords;
 
 
 })()
