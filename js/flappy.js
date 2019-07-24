@@ -22,6 +22,7 @@ var gravity = 1.5;
 var originalGravity = 1.5;
 
 var score = 0;
+var record = 0;
 
 var pipe = [];
 
@@ -99,7 +100,11 @@ function moveUp(){
 
 function gameOver(){
     gravity = 0;
-    var retVal = confirm("Do you want to restart? Your score is " + score);
+    if(score > record)
+        record = score;
+    
+    var retVal = confirm("Do you want to restart? Your score is " + score
+    + ".\nYour record is " + record);
 
     if(retVal){
         dead = 0;
