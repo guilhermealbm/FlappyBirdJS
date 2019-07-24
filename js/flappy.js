@@ -121,6 +121,11 @@ function gameOver(){
     }
 }
 
+function setValue(){
+    document.formRecord.record.value = record;
+    document.forms["formRecord"].submit();
+}
+
 window.onload = function () {
     draw();
 }

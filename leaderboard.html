@@ -9,6 +9,7 @@
 <body>
     <form method="GET" id = "formRecord" name="formRecord">
         Nickname: <input type="text" name="fname"><br>
+        <p id="record"></p>
         <button type="submit">Click here to add your record to Leaderboard</button>
     </form> 
 
@@ -16,6 +17,14 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
     <script src="js/firebase.js"></script>
     <script src="js/game_database.js"></script>
+    <script>
+    window.onload = function getUrlValue(){
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var record = url.searchParams.get("record");
+        document.getElementById("record").innerHTML = "Record: " + record;
+    }
+    </script>
 
 </body>
 </html>

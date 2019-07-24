@@ -16,7 +16,10 @@
 <body>
 
     <canvas id = "canvas" width="288" height="512"></canvas>
-    <br><button id = "leaderboard" style="width: 288px" onclick="location.href = 'leaderboard.html';"> Click to visit leaderboard</button>
+    <form id="formRecord" name="formRecord" action="leaderboard.html" method="GET">
+        <input id = "record" name = "record" type="hidden" name="total" id="total" value="">
+        <button id = "leaderboard" style="width: 288px" onclick="setValue();"> Click to visit leaderboard</button>
+    </form>
     <script src="js/flappy.js"></script>
 
 </body>
