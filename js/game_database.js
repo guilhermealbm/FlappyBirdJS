@@ -5,6 +5,7 @@ const game_database = {};
     let game_id = false;
 
     function newRecord(player, score){
+        console.log("Here I am");
         const game_data = {
             player: player,
             score: score,
@@ -14,6 +15,9 @@ const game_database = {};
         if(!game_id){
             game_id = firebase.database().ref().child('games').push().key;
         }
+
+        if(score=="")
+            return { succes: false, message: 'Error. Null score'};
 
         let updates = {};
         updates['/games/' + game_id] = game_data;
