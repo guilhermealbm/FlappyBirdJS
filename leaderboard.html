@@ -11,8 +11,16 @@
         Nickname: <input type="text" id = "name" name="name"><br>
         <p id="bestRecord"></p>
         <input id = "record" name = "record" type="hidden" value="">
-        <button type="button" onclick="game_database.new(document.getElementById('name').value, parseInt(document.getElementById('bestRecord').innerHTML.slice(-1)))">Click here to add your record to Leaderboard</button>
+         <button type="button" onclick="game_database.new(document.getElementById('name').value, parseInt(document.getElementById('bestRecord').innerHTML.split(' ')[1]));deleteRows();">Click here to add your record to Leaderboard</button>
     </form> 
+
+    <br>
+    <table id = "ranking" style="width:25%; border:1px solid black">
+        <tr>
+            <th style="text-align:left">Nickname</th>
+            <th style="text-align:left">Score</th>
+        </tr>
+    </table>
 
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
@@ -25,6 +33,14 @@
         var record = url.searchParams.get("record");
         document.getElementById("bestRecord").innerHTML = "Record: " + record;
         //document.getElementById("hiddenRecord").innerHTML = record;
+    };game_database.getRecords();
+
+    function deleteRows(){
+        table = document.getElementById("ranking");
+        size = table.rows.length
+        for (let index = 0; index < (size-1); index++)
+            table.deleteRow(1);
+        
     }
     </script>
 

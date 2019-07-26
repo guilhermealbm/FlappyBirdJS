@@ -44,8 +44,17 @@ const game_database = {};
 
             scores = scores.slice(-(scores.length-1));
             scores.reverse()
+            var i = 0;
             for (let [k, v] of scores) {
-                console.log(k, v);
+                if(i < 10){
+                    var tr = document.createElement("tr");
+                    var td_name = tr.appendChild(document.createElement('td'));
+                    var td_score = tr.appendChild(document.createElement('td'));
+                    td_name.innerHTML = k;
+                    td_score.innerHTML = v;
+                    document.getElementById("ranking").appendChild(tr);
+                    i++;
+                }
             }
 
         });
