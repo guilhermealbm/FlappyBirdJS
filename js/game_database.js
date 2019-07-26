@@ -5,7 +5,6 @@ const game_database = {};
     let game_id = false;
 
     function newRecord(player, score){
-        console.log("Here I am");
         const game_data = {
             player: player,
             score: score,
@@ -35,13 +34,23 @@ const game_database = {};
     }
 
     function getRecords(){
-        var leadsRef = firebase.database().ref('games');
+        var scores = [[]];
+        var leadsRef = firebase.database().ref('games').orderByChild('score').limitToLast(10);
         leadsRef.on('value', function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
-            var childData = childSnapshot.val();
-            console.log(childData.score);
+                var childData = childSnapshot.val();
+                scores.push([childData.player, childData.score]);
             });
+
+            scores = scores.slice(-(scores.length-1));
+            scores.reverse()
+            for (let [k, v] of scores) {
+                console.log(k, v);
+            }
+
         });
+
+
     }
 
     game_database.new = newRecord;

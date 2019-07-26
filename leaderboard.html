@@ -11,7 +11,7 @@
         Nickname: <input type="text" id = "name" name="name"><br>
         <p id="bestRecord"></p>
         <input id = "record" name = "record" type="hidden" value="">
-        <button type="button" onclick="game_database.new(document.getElementById('name').value, document.getElementById('bestRecord').innerHTML.slice(-1))">Click here to add your record to Leaderboard</button>
+        <button type="button" onclick="game_database.new(document.getElementById('name').value, parseInt(document.getElementById('bestRecord').innerHTML.slice(-1)))">Click here to add your record to Leaderboard</button>
     </form> 
 
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
